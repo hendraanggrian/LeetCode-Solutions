@@ -2,7 +2,7 @@ package com.hendraanggrian.leetcode;
 
 import java.util.Iterator;
 
-public class ListNodeIterator<T extends ListNode<T>> implements Iterator<T> {
+public final class ListNodeIterator<T extends ListNode<T>> implements Iterator<T> {
   private T curr;
 
   ListNodeIterator(T node) {

@@ -1,10 +1,19 @@
 package com.hendraanggrian.leetcode;
 
 import java.util.Iterator;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
-public class SinglyListNode implements ListNode<SinglyListNode>, Iterable<SinglyListNode> {
+public final class SinglyListNode extends ListNode<SinglyListNode>
+    implements Iterable<SinglyListNode> {
+  public static SinglyListNode ZERO = new SinglyListNode(0);
+
   private final int val;
   private SinglyListNode next;
+
+  public SinglyListNode() {
+    val = 0;
+  }
 
   public SinglyListNode(int value) {
     val = value;
@@ -28,6 +37,10 @@ public class SinglyListNode implements ListNode<SinglyListNode>, Iterable<Singly
   @Override
   public Iterator<SinglyListNode> iterator() {
     return new ListNodeIterator<>(this);
+  }
+
+  public Stream<SinglyListNode> stream() {
+    return StreamSupport.stream(spliterator(), false);
   }
 
   public static SinglyListNode of(int... values) {

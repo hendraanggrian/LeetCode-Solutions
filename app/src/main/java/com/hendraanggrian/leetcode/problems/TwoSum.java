@@ -1,12 +1,15 @@
 package com.hendraanggrian.leetcode.problems;
 
+import com.hendraanggrian.leetcode.tags.Memoization;
+import com.hendraanggrian.leetcode.tags.TwoPointers;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * <a href="https://leetcode.com/problems/two-sum/">See problem</a>
+ * <a href="https://leetcode.com/problems/two-sum/">See problem</a>.
  */
 enum TwoSum {
+  @TwoPointers
   BRUTE_FORCE {
     @Override
     int[] twoSum(int[] nums, int target) {
@@ -20,20 +23,21 @@ enum TwoSum {
       return null;
     }
   },
-  DYNAMIC_PROGRAMMING {
+  @Memoization
+  SINGLE_PASS {
     @Override
     int[] twoSum(int[] nums, int target) {
-      Map<Integer, Integer> map = new HashMap<>();
-      int index = -1;
+      // remaining to index mapping
+      final Map<Integer, Integer> indices = new HashMap<>();
+
       for (int i = 0; i < nums.length; i++) {
-        if (!map.containsKey(nums[i])) {
-          map.put(target - nums[i], i);
-        } else {
-          index = i;
-          break;
+        final int num = nums[i];
+        if (indices.containsKey(num)) {
+          return new int[]{indices.get(num), i};
         }
+        indices.put(target - num, i);
       }
-      return new int[]{map.get(nums[index]), index};
+      return new int[]{-1, -1};
     }
   };
 

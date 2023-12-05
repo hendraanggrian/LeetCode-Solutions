@@ -1,11 +1,18 @@
 package com.hendraanggrian.leetcode;
 
 import java.util.Iterator;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
-public class DoublyListNode implements ListNode<DoublyListNode>, Iterable<DoublyListNode> {
+public final class DoublyListNode extends ListNode<DoublyListNode>
+    implements Iterable<DoublyListNode> {
   private final int val;
   private DoublyListNode prev;
   private DoublyListNode next;
+
+  public DoublyListNode() {
+    val = 0;
+  }
 
   public DoublyListNode(int value) {
     val = value;
@@ -37,6 +44,10 @@ public class DoublyListNode implements ListNode<DoublyListNode>, Iterable<Doubly
   @Override
   public Iterator<DoublyListNode> iterator() {
     return new ListNodeIterator<>(this);
+  }
+
+  public Stream<DoublyListNode> stream() {
+    return StreamSupport.stream(spliterator(), false);
   }
 
   public static DoublyListNode asDoubly(int... values) {

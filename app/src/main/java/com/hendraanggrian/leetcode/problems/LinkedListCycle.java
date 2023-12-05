@@ -1,31 +1,32 @@
 package com.hendraanggrian.leetcode.problems;
 
 import com.hendraanggrian.leetcode.SinglyListNode;
-
-import java.util.HashMap;
+import com.hendraanggrian.leetcode.tags.FastSlow;
+import com.hendraanggrian.leetcode.tags.Memoization;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
 /**
- * <a href="https://leetcode.com/problems/linked-list-cycle/">See problem</a>
+ * <a href="https://leetcode.com/problems/linked-list-cycle/">See problem</a>.
  */
 enum LinkedListCycle {
+  @Memoization
   BRUTE_FORCE {
     @Override
     boolean hasCycle(SinglyListNode head) {
-      Set<SinglyListNode> set = new HashSet<>();
-      SinglyListNode curr = head;
-      while (curr != null) {
-        if (!set.add(curr)) {
+      // visited nodes
+      final Set<SinglyListNode> visits = new HashSet<>();
+
+      for (SinglyListNode node : head) {
+        if (!visits.add(node)) {
           return true;
         }
-        curr = curr.getNext();
       }
       return false;
     }
   },
-  TWO_POINTERS {
+  @FastSlow
+  OVERLAPPING {
     @Override
     boolean hasCycle(SinglyListNode head) {
       if (head == null || !head.hasNext()) {
